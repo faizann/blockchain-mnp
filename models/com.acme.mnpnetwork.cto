@@ -1,0 +1,28 @@
+/**
+ * Write your model definitions here
+ */
+
+namespace com.acme.mnpnetwork
+
+participant Operator identified by mccmnc {
+  o String mccmnc
+  o String name
+}
+
+asset Subscriber identified by msisdn {
+  o String msisdn
+  o String name
+  --> Operator originalOperator
+  --> Operator currentOperator
+}
+
+transaction ChangeOperator {
+  --> Subscriber subscriber
+  --> Operator newOperator
+}
+
+event SubscriberChangeEvent {
+  --> Subscriber subscriber
+  --> Operator oldOperator
+  --> Operator newOperator
+}
